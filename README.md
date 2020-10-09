@@ -9,7 +9,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/errbufferoverfl/pearlmemory">
-    <img src="images/logo.png" alt="Pearl Memory Logo" width="80" height="80">
+    <img src="images/logo.gif" alt="Pearl Memory Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Pearl Memory</h3>
@@ -114,14 +114,14 @@ Project Link: [https://github.com/errbufferoverfl/repo_name](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/errbufferoverfl/repo.svg?style=flat-square
-[contributors-url]: https://github.com/errbufferoverfl/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/errbufferoverfl/repo.svg?style=flat-square
-[forks-url]: https://github.com/errbufferoverfl/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/errbufferoverfl/repo.svg?style=flat-square
-[stars-url]: https://github.com/errbufferoverfl/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/errbufferoverfl/repo.svg?style=flat-square
-[issues-url]: https://github.com/errbufferoverfl/repo/issues
-[license-shield]: https://img.shields.io/github/license/errbufferoverfl/repo.svg?style=flat-square
-[license-url]: https://github.com/errbufferoverfl/repo/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/errbufferoverfl/pearlmemory.svg?style=flat-square
+[contributors-url]: https://github.com/errbufferoverfl/pearlmemory/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/errbufferoverfl/pearlmemory.svg?style=flat-square
+[forks-url]: https://github.com/errbufferoverfl/pearlmemory/network/members
+[stars-shield]: https://img.shields.io/github/stars/errbufferoverfl/pearlmemory.svg?style=flat-square
+[stars-url]: https://github.com/errbufferoverfl/pearlmemory/stargazers
+[issues-shield]: https://img.shields.io/github/issues/errbufferoverfl/pearlmemory.svg?style=flat-square
+[issues-url]: https://github.com/errbufferoverfl/pearlmemory/issues
+[license-shield]: https://img.shields.io/github/license/errbufferoverfl/pearlmemory.svg?style=flat-square
+[license-url]: https://github.com/errbufferoverfl/pearlmemory/blob/master/LICENSE.txt
 [product-screenshot]: images/screenshot.png
