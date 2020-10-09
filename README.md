@@ -9,7 +9,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/errbufferoverfl/pearlmemory">
-    <img src="images/logo.gif" alt="Pearl Memory Logo" width="80" height="80">
+    <img src="images/logo.gif" alt="Pearl Memory Logo" width="100" height="100">
   </a>
 
   <h3 align="center">Pearl Memory</h3>
@@ -123,5 +123,5 @@ Project Link: [https://github.com/errbufferoverfl/repo_name](https://github.com/
 [issues-shield]: https://img.shields.io/github/issues/errbufferoverfl/pearlmemory.svg?style=flat-square
 [issues-url]: https://github.com/errbufferoverfl/pearlmemory/issues
 [license-shield]: https://img.shields.io/github/license/errbufferoverfl/pearlmemory.svg?style=flat-square
-[license-url]: https://github.com/errbufferoverfl/pearlmemory/blob/master/LICENSE.txt
+[license-url]: https://github.com/errbufferoverfl/pearlmemory/blob/master/LICENSE.md
 [product-screenshot]: images/screenshot.png
