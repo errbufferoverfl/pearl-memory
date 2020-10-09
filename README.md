@@ -34,9 +34,8 @@
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
+* [Prerequisites](#prerequisites)
 * [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
 * [Usage](#usage)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
@@ -47,10 +46,26 @@
 <!-- ABOUT THE PROJECT -->
 # About the Project
 
-[![Pearlmemory Screen Shot][product-screenshot]](https://example.com)
+<p align="center">
+  <a href="https://github.com/errbufferoverfl/pearlmemory">
+    <img src="images/pearlmemory_01.png" alt="product-screenshot" width="300" height="300">
+  </a>
+</p>
+
+<!-- ABOUT THE PROJECT -->
+## Built With
+
+Built with Python 3 for Anki.
+
+<!-- prerequisites -->
+# Prerequisites
+
+* [Anki](https://apps.ankiweb.net/)
+* [Bing API Key](https://azure.microsoft.com/en-au/services/cognitive-services/bing-web-search-api/)
+* [Python 3.7](https://www.python.org/)
 
 <!-- GETTING STARTED -->
-## Getting Started
+# Getting Started
 
 To get a local copy up and running on macOS use the following steps.
 
