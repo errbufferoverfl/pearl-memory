@@ -1,0 +1,12 @@
+# bing
+image_api_url: https://api.cognitive.microsoft.com/bing/v7.0/images/search
+subscription_key: BING-API-KEY
+
+setLang:    DE
+mkt:        de-DE
+freshness:  Month
+imageType:  Photo
+license:    Any
+count:      3
+language:   de #language for advance search parameter (within q=)
+loc:        de #location, similar to above
