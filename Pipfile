@@ -13,6 +13,8 @@ genanki = "*"
 requests = "*"
 pillow = "*"
 python-resize-image = "*"
+azure-cognitiveservices-speech = "*"
+langdetect = "*"
 
 [requires]
 python_version = "3.7"

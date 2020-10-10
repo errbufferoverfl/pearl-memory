@@ -15,9 +15,9 @@
   <h3 align="center">Pearl Memory</h3>
 
   <p align="center">
-    A Python script for creating German Anki cards. The script loads a CSV file of words to search, then it gets 
-    data from Bing image search, and the Collins dictionary. The script tries to get culture/language specific images 
-    but is often hilariously bad at this.
+    A Python script for creating German Anki cards. The script loads a CSV file of words to search, gets a translation
+    using Azure Cognitive Services translate and text to speech to generate the primary content, to help enforce the
+    learning process uses images sourced from Bing Image API.
     <br />
     <a href="https://github.com/errbufferoverfl/pearlmemory"><strong>Explore the docs »</strong></a>
     <br />
@@ -61,6 +61,8 @@ Built with Python 3 for Anki.
 # Prerequisites
 
 * [Anki](https://apps.ankiweb.net/)
+* [Azure Cognitive Services - Translate](https://azure.microsoft.com/en-au/services/cognitive-services/translator/)
+* [Azure Cognitive Services - Text to Speech](https://azure.microsoft.com/en-au/services/cognitive-services/text-to-speech/)
 * [Bing API Key](https://azure.microsoft.com/en-au/services/cognitive-services/bing-web-search-api/)
 * [Python 3.7](https://www.python.org/)
 
@@ -77,12 +79,17 @@ git clone https://github.com/errbufferoverfl/pearlmemory.git
 ```sh
 pipenv install
 ```
-3. Configure a Bing API key.
+3. Configure a Bing API key, Azure Translator API and Azure Text to Speech API.
 
-4. Replace the `BING-API-KEY` in `bing_settings.yaml` with Key 1 from Azure.
+4. In `bing_settings.yaml` replace the `BING-API-KEY`, `AZURE_TRANSLATE_KEY` and `AZURE_SPEECH_KEY`.
 
-5. Populate the `anki_search.csv` with the words you wish to turn into flash cards. You'll get the best results if you
-do not include the gender of the word (die, der, das).
+5. Ensure the `translate_subscription_region` and `voice_subscription_region` is set to the region your resource is
+deployed in. Check [Speech-to-text, text-to-speech, and translation Regions](https://docs.microsoft.com/en-au/azure/cognitive-services/speech-service/regions#speech-sdk) for 
+region short codes.
+
+6. Populate the `anki_search.csv` with the words you wish to turn into flash cards. You can use English or German words 
+and Pearl Memory will handle the translation to and from their respective language, this isn't perfect and some phrases
+such as `der Lenz` may not be 100% accurate.
 
 <!-- USAGE EXAMPLES -->
 ## Usage Examples
