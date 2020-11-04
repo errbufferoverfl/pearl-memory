@@ -11,3 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved handling of images missing a proper file extension
 - Improved clean up of images, and sound files
 - Changed URL in README to match new GitHub name
+- Included `*.apkg` to .gitignore
+
+### Added
+- Missing 'missing.png' image
