@@ -8,7 +8,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/errbufferoverfl/pearlmemory">
+  <a href="https://github.com/errbufferoverfl/pearl-memory">
     <img src="images/logo.gif" alt="Pearl Memory Logo" width="100" height="100">
   </a>
 
@@ -19,14 +19,14 @@
     using Azure Cognitive Services translate and text to speech to generate the primary content, to help enforce the
     learning process uses images sourced from Bing Image API.
     <br />
-    <a href="https://github.com/errbufferoverfl/pearlmemory"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/errbufferoverfl/pearl-memory"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/errbufferoverfl/pearlmemory">View Demo</a>
+    <a href="https://github.com/errbufferoverfl/pearl-memory">View Demo</a>
     ·
-    <a href="https://github.com/errbufferoverfl/pearlmemory/issues">Report Bug</a>
+    <a href="https://github.com/errbufferoverfl/pearl-memory/issues">Report Bug</a>
     ·
-    <a href="https://github.com/errbufferoverfl/pearlmemory/issues">Request Feature</a>
+    <a href="https://github.com/errbufferoverfl/pearl-memory/issues">Request Feature</a>
   </p>
 </p>
 
@@ -47,8 +47,8 @@
 # About the Project
 
 <p align="center">
-  <a href="https://github.com/errbufferoverfl/pearlmemory">
-    <img src="images/pearlmemory_01.png" alt="product-screenshot" width="300" height="300">
+  <a href="https://github.com/errbufferoverfl/pearl-memory">
+    <img src="images/pearl-memory_01.png" alt="product-screenshot" width="300" height="300">
   </a>
 </p>
 
@@ -63,7 +63,7 @@ Built with Python 3 for Anki.
 * [Anki](https://apps.ankiweb.net/)
 * [Azure Cognitive Services - Translate](https://azure.microsoft.com/en-au/services/cognitive-services/translator/)
 * [Azure Cognitive Services - Text to Speech](https://azure.microsoft.com/en-au/services/cognitive-services/text-to-speech/)
-* [Bing API Key](https://azure.microsoft.com/en-au/services/cognitive-services/bing-web-search-api/)
+* [Bing Search v7 Marketplace Resource](https://azure.microsoft.com/en-au/pricing/details/cognitive-services/search-api/)
 * [Python 3.7](https://www.python.org/)
 
 <!-- GETTING STARTED -->
@@ -73,7 +73,7 @@ To get a local copy up and running on macOS use the following steps.
 
 1. Clone the repo.
 ```sh
-git clone https://github.com/errbufferoverfl/pearlmemory.git
+git clone https://github.com/errbufferoverfl/pearl-memory.git
 ```
 2. Install Python packages.
 ```sh
@@ -96,13 +96,13 @@ such as `der Lenz` may not be 100% accurate.
 
 ```sh
 pipenv shell
-./pearlmemory.py
+./pearl-memory.py
 ```
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/errbufferoverfl/pearlmemory/issues) for a list of proposed features 
+See the [open issues](https://github.com/errbufferoverfl/pearl-memory/issues) for a list of proposed features 
 (and known issues).
 
 <!-- CONTRIBUTING -->
@@ -127,7 +127,7 @@ Distributed under the GPLv3 License. See [LICENSE.md](LICENSE.md) for more infor
 
 errbufferoverfl - [@errbufferoverfl](https://twitter.com/errbufferoverfl)
 
-Project Link: [https://github.com/errbufferoverfl/repo_name](https://github.com/errbufferoverfl/pearlmemory)
+Project Link: [https://github.com/errbufferoverfl/pearl-memory](https://github.com/errbufferoverfl/pearl-memory)
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
@@ -136,14 +136,14 @@ Project Link: [https://github.com/errbufferoverfl/repo_name](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/errbufferoverfl/pearlmemory.svg?style=flat-square
-[contributors-url]: https://github.com/errbufferoverfl/pearlmemory/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/errbufferoverfl/pearlmemory.svg?style=flat-square
-[forks-url]: https://github.com/errbufferoverfl/pearlmemory/network/members
-[stars-shield]: https://img.shields.io/github/stars/errbufferoverfl/pearlmemory.svg?style=flat-square
-[stars-url]: https://github.com/errbufferoverfl/pearlmemory/stargazers
-[issues-shield]: https://img.shields.io/github/issues/errbufferoverfl/pearlmemory.svg?style=flat-square
-[issues-url]: https://github.com/errbufferoverfl/pearlmemory/issues
-[license-shield]: https://img.shields.io/github/license/errbufferoverfl/pearlmemory.svg?style=flat-square
-[license-url]: https://github.com/errbufferoverfl/pearlmemory/blob/master/LICENSE.md
+[contributors-shield]: https://img.shields.io/github/contributors/errbufferoverfl/pearl-memory.svg?style=flat-square
+[contributors-url]: https://github.com/errbufferoverfl/pearl-memory/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/errbufferoverfl/pearl-memory.svg?style=flat-square
+[forks-url]: https://github.com/errbufferoverfl/pearl-memory/network/members
+[stars-shield]: https://img.shields.io/github/stars/errbufferoverfl/pearl-memory.svg?style=flat-square
+[stars-url]: https://github.com/errbufferoverfl/pearl-memory/stargazers
+[issues-shield]: https://img.shields.io/github/issues/errbufferoverfl/pearl-memory.svg?style=flat-square
+[issues-url]: https://github.com/errbufferoverfl/pearl-memory/issues
+[license-shield]: https://img.shields.io/github/license/errbufferoverfl/pearl-memory.svg?style=flat-square
+[license-url]: https://github.com/errbufferoverfl/pearl-memory/blob/master/LICENSE.md
 [product-screenshot]: images/screenshot.png
