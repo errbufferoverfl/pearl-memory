@@ -1,4 +1,4 @@
-image_api_url: https://api.cognitive.microsoft.com/bing/v7.0/images/search
+image_api_url: https://api.bing.microsoft.com/v7.0/images/search
 translate_api_url: https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from={}&to={}
 
 translate_subscription_region: australiaeast
