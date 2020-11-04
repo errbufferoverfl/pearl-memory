@@ -25,7 +25,7 @@ import os
 import uuid
 from pathlib import Path
 from textwrap import dedent
-from typing import Tuple
+from typing import Tuple, Dict
 
 import PIL
 import azure.cognitiveservices.speech as speechsdk
@@ -35,8 +35,7 @@ import requests
 import ruamel.yaml
 from PIL import Image
 from azure.cognitiveservices.speech.audio import AudioOutputConfig
-from dictcc import Dict
-from resizeimage import resizeimage
+from resizeimage import resizeimage, imageexceptions
 
 search_csv_filename = "anki_search.csv"
 csv_file_encoding = 'mac_roman'
@@ -136,7 +135,8 @@ def write_genaki() -> None:
 
 
 def get_search_term_data(search_list: list, request_headers: dict, request_parameters: dict, settings: dict) -> list:
-    special_chars = ["ö", "ü", "ä", "ß"]
+    img_types = ['jpeg', 'jpg', 'png', 'gif']
+
     results = []
     for search in search_list:
         result = dict()
@@ -181,13 +181,16 @@ def get_search_term_data(search_list: list, request_headers: dict, request_param
         result['image_file_original'] = original_image_filename.split('?')[0]
         result['image_file'] = search + "." + original_image_ext
 
+        if original_image_ext not in img_types:
+            original_image_ext = 'jpg'
+
         # download image file
         if not Path(result['image_file']).is_file():
             try:
                 download(result['image_url'], result['image_file'])
             except (requests.HTTPError, requests.exceptions.SSLError):
                 logging.warning("Couldn't download image, skipping")
-                result['image_file'] = None
+                result['image_file'] = "missing.png"
         else:
             logging.warning("File exists, skipping: " + result['image_file'])
 
@@ -199,9 +202,14 @@ def get_search_term_data(search_list: list, request_headers: dict, request_param
                 try:
                     with Image.open(f) as image:
                         logging.info("Resizing image: " + result['image_file'])
-                        resized_filename = search + "_resized." + original_image_ext
-                        cover = resizeimage.resize_cover(image, [resize_image_x, resize_image_y])
-                        cover.save(resized_filename, image.format)
+                        try:
+                            cover = resizeimage.resize_cover(image, [resize_image_x, resize_image_y])
+                        except imageexceptions.ImageSizeError as image_err:
+                            logging.warning(image_err.message)
+                            img = Image.open(f)
+                            img.save(resized_filename)
+                        else:
+                            cover.save(resized_filename, image.format)
                 except PIL.UnidentifiedImageError:
                     logging.warning("Cannot identify image file, deleting")
                     os.remove(result['image_file'])
@@ -209,6 +217,7 @@ def get_search_term_data(search_list: list, request_headers: dict, request_param
 
         results.append(result)
     logging.info("Completed Queries!")
+
     return results
 
 
@@ -313,6 +322,7 @@ def package_deck(gaki_deck: genanki.Deck, media: list) -> genanki.Package:
 
 def clean_up(results: list) -> None:
     [os.remove(x['image_file']) for x in results if x['image_file'] is not None]
+    [os.remove(x['image_file_resized']) for x in results if x['image_file_resized'] is not None]
     [os.remove(x['de-voice']) for x in results if x['de-voice'] is not None]
 
 
