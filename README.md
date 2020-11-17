@@ -87,12 +87,12 @@ git clone https://github.com/errbufferoverfl/pearl-memory.git
 ```sh
 pipenv install
 ```
-3. Configure a Bing API key, Azure Translator API and Azure Text to Speech API. This can be done automatically using 
-Terraform by running:
+3. Configure a Bing API key, Azure Translator API and Azure Text to Speech API. Creation of the Azure Translator API and Azure Text to Speech API can be done automatically using Terraform by running the following commands:
 ```
 terraform plan
 terraform apply
 ```
+_The Bing resource still needs to be created manually, because of a known issue with the Azure API._
 
 **Note:** By default this will deploy (non global) resources in `australiaeast` using the name "pearl-memory", you can change these
 values by specifying alternatives using the `var` flag like:
