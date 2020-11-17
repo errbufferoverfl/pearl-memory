@@ -55,7 +55,7 @@
 <!-- ABOUT THE PROJECT -->
 ## Built With
 
-Built with Python 3 for Anki.
+Built with Python 3, on Azure Cognos Services.
 
 <!-- prerequisites -->
 # Prerequisites
@@ -65,6 +65,14 @@ Built with Python 3 for Anki.
 * [Azure Cognitive Services - Text to Speech](https://azure.microsoft.com/en-au/services/cognitive-services/text-to-speech/)
 * [Bing Search v7 Marketplace Resource](https://azure.microsoft.com/en-au/pricing/details/cognitive-services/search-api/)
 * [Python 3.7](https://www.python.org/)
+
+## Optional
+
+The following additional tools are needed if you want to automatically build the Azure Services
+
+* [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+* [Terraform](https://www.terraform.io/)
+
 
 <!-- GETTING STARTED -->
 # Getting Started
@@ -79,7 +87,32 @@ git clone https://github.com/errbufferoverfl/pearl-memory.git
 ```sh
 pipenv install
 ```
-3. Configure a Bing API key, Azure Translator API and Azure Text to Speech API.
+3. Configure a Bing API key, Azure Translator API and Azure Text to Speech API. This can be done automatically using 
+Terraform by running:
+```
+terraform plan
+terraform apply
+```
+
+**Note:** By default this will deploy (non global) resources in `australiaeast` using the name "pearl-memory", you can change these
+values by specifying alternatives using the `var` flag like:
+
+```
+terraform apply  -var="name=my-awesome-flashcard-generator" -var="region=brazilsouth"
+```
+
+Once the services have been successfully deployed via Terraform, you should see output similar to the following:
+
+```
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+az-speech-cog-key = <sensitive>
+az-translate-cog-key = <sensitive>
+```
+
+These outputs can be found in the `.tfstate` file and can be used for the following steps.
 
 4. In `bing_settings.yaml` replace the `BING-API-KEY`, `AZURE_TRANSLATE_KEY` and `AZURE_SPEECH_KEY`.
 
@@ -125,9 +158,7 @@ Distributed under the GPLv3 License. See [LICENSE.md](LICENSE.md) for more infor
 <!-- CONTACT -->
 ## Contact
 
-errbufferoverfl - [@errbufferoverfl](https://twitter.com/errbufferoverfl)
-
-Project Link: [https://github.com/errbufferoverfl/pearl-memory](https://github.com/errbufferoverfl/pearl-memory)
+* errbufferoverfl - [@errbufferoverfl](https://twitter.com/errbufferoverfl)
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
