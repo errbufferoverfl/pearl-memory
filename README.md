@@ -15,11 +15,9 @@
   <h3 align="center">Pearl Memory</h3>
 
   <p align="center">
-    A Python script for creating German Anki cards. The script loads a CSV file of words to search, gets a translation
-    using Azure Cognitive Services translate and text to speech to generate the primary content, to help enforce the
-    learning process uses images sourced from Bing Image API.
+    A Python script for creating German Anki cards. The script loads a CSV file of words to search, gets a translation using Azure Cognitive Services translate and text to speech to generate the primary content, to help enforce the learning process uses images sourced from Bing Image API.
     <br />
-    <a href="https://github.com/errbufferoverfl/pearl-memory"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/errbufferoverfl/pearl-memory/blob/main/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/errbufferoverfl/pearl-memory">View Demo</a>
@@ -57,7 +55,7 @@
 
 Built with Python 3, on Azure Cognos Services.
 
-<!-- prerequisites -->
+<!-- PREREQUISITES -->
 # Prerequisites
 
 * [Anki](https://apps.ankiweb.net/)
@@ -83,10 +81,12 @@ To get a local copy up and running on macOS use the following steps.
 ```sh
 git clone https://github.com/errbufferoverfl/pearl-memory.git
 ```
+
 2. Install Python packages.
 ```sh
 pipenv install
 ```
+
 3. Configure a Bing API key, Azure Translator API and Azure Text to Speech API. This can be done automatically using 
 Terraform by running:
 ```
@@ -94,7 +94,9 @@ terraform plan
 terraform apply
 ```
 
-**Note:** By default this will deploy (non global) resources in `australiaeast` using the name "pearl-memory", you can change these
+**Note:** Bing.Search.v7 APIs haven't been correctly migrated for Terraform use yet so you will need to manually create this asset. You can see the [GitHub issue](https://github.com/terraform-providers/terraform-provider-azurerm/issues/9102) for more details.
+
+**Note:** By default this will deploy (non-global) resources in `australiaeast` using the name "pearl-memory", you can change these
 values by specifying alternatives using the `var` flag like:
 
 ```
@@ -116,9 +118,7 @@ These outputs can be found in the `.tfstate` file and can be used for the follow
 
 4. In `bing_settings.yaml` replace the `BING-API-KEY`, `AZURE_TRANSLATE_KEY` and `AZURE_SPEECH_KEY`.
 
-5. Ensure the `translate_subscription_region` and `voice_subscription_region` is set to the region your resource is
-deployed in. Check [Speech-to-text, text-to-speech, and translation Regions](https://docs.microsoft.com/en-au/azure/cognitive-services/speech-service/regions#speech-sdk) for 
-region short codes.
+5. Ensure the `translate_subscription_region` and `voice_subscription_region` is set to the region your resource is deployed in. Check [Speech-to-text, text-to-speech, and translation Regions](https://docs.microsoft.com/en-au/azure/cognitive-services/speech-service/regions#speech-sdk) for the region short codes.
 
 6. Populate the `anki_search.csv` with the words you wish to turn into flash cards. You can use English or German words 
 and Pearl Memory will handle the translation to and from their respective language, this isn't perfect and some phrases
@@ -135,19 +135,18 @@ pipenv shell
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/errbufferoverfl/pearl-memory/issues) for a list of proposed features 
-(and known issues).
+See the [open issues](https://github.com/errbufferoverfl/pearl-memory/issues) for a list of proposed features (and known issues). Pull requests are always welcome!
 
 <!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. 
-Any contributions you make are **greatly appreciated**.
+Any contributions you make is **greatly appreciated**.
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b issue_no_feature_description`)
+3. Commit your Changes (`git commit -m "Adds some amazing feature"`)
+4. Push to the Branch (`git push origin issue_no_feature_description`)
 5. Open a Pull Request
 
 <!-- LICENSE -->
