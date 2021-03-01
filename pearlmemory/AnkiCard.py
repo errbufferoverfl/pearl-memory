@@ -37,6 +37,8 @@ import azure.cognitiveservices.speech as speechsdk
 from resizeimage import resizeimage, imageexceptions
 from slugify import slugify
 
+from pearlmemory import AnkiTemplates
+
 
 class AzConf:
     AZURE_SPEECH_KEY = os.environ.get("AZ-SPEECH-KEY")
@@ -72,7 +74,7 @@ class AzConf:
 
 
 class AnkiCard:
-    OUTPUT_DIRECTORY = Path("tmp")
+    OUTPUT_DIRECTORY = Path("../tmp")
     config = AzConf
     translation = {"en": "", "de": ""}
 
@@ -137,7 +139,7 @@ class AnkiCard:
             speech_config=speech_config,
             audio_config=audio_config
         )
-        ssml_string = open("ssml.xml", "r").read().format(self.translation['de'])
+        ssml_string = open("../ssml.xml", "r").read().format(self.translation['de'])
 
         result = speech_synthesizer.speak_ssml_async(ssml_string).get()
 
@@ -238,6 +240,8 @@ class AnkiModel(genanki.Model):
         {"name": "Bild"},
         {"name": "Audio"},
     ]
+    templates = AnkiTemplates.MODEL_TEMPLATES
+    css = ""
 
     def __init__(self):
         super(AnkiModel, self).__init__(name="DeModel", model_id=str(self.__create_id()))
