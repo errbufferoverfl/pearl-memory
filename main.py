@@ -1,38 +1,65 @@
 #!/usr/bin/env pipenv run python
 # -*- coding: utf-8 -*-
-
+import csv
+import errno
 import logging
+import os
+import sys
 from pathlib import Path
 
-import requests
+import genanki
+from slugify import slugify
 
-CVS_FILE_ENCODING = "mac_roman"
-RESIZE_IMAGE_X, RESIZE_IMAGE_Y = 400, 300
+from pearlmemory.AnkiCard import AzConf, AnkiDeck, AnkiCard
+
+SEARCH_CVS_FILENAME = Path("anki_search.csv")
 
 
-GENANKI_ID_YAML = Path("genanki_ids.yaml")
-BING_SETTINGS_YAML_FILENAME = Path("bing_settings.yaml")
-TEMPLATES_DIR = Path("templates")
-OUTPUT_DIR = Path("output")
-TMP_DIR = Path("tmp")
+def import_translate_list() -> list:
+    translation_list = list()
+    try:
+        with SEARCH_CVS_FILENAME.open(encoding="utf-8") as stream:
+            reader = csv.reader(stream)
+            for row in reader:
+                translation_list.append(row[0])
+    except FileNotFoundError:
+        logging.critical(f"Unable to locate '{SEARCH_CVS_FILENAME}'. Check it exists.")
+        sys.exit(errno.EIO)
+    except TypeError:
+        logging.critical(f"Unable to load '{SEARCH_CVS_FILENAME}'. Check it is populated.")
+        sys.exit(errno.EIO)
+    else:
+        return translation_list
 
-# index of Bing image we use
-IMAGE_INDEX = 0
 
-def download(url: str, filename: str) -> None:
-    """
-    Downloads a given file from a URL.
+def package_deck(new_deck: genanki.Deck, media: list) -> genanki.Package:
+    de_package = genanki.Package(new_deck)
+    de_package.media_files = media
 
-    Args:
-        url: The location of the file as a Uniform Resource Locator (URL)
-        filename: The name of the resource being downloaded based on a Uniform Resource Identifier (URI) fragment.
-            For example: https://www.wildlifeworldwide.com/images/categories/polar_bear_watching_select_locations.jpg
-            The filename = polar_bear_watching_select_locations.jpg
+    return de_package
 
-    Returns: None
-    """
-    with open(filename, 'wb') as f:
-        logging.info(f"Downloading: {filename}")
-        img_data = requests.get(url, headers={"User-Agent': 'Mozilla/5.0"})
-        img_data.raise_for_status()
-        f.write(img_data.content)
+
+def clean_up() -> None:
+    os.rmdir(Path("tmp"))
+
+
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+
+    deck_name = input("Please enter your deck name: ")
+    deck_name = slugify(deck_name, separator=" ")
+
+    az_config = AzConf()
+    deck = AnkiDeck(title=deck_name)
+
+    # import the word list
+    words = import_translate_list()
+
+    anki_model = genanki.Model(
+        model_id=
+
+    )
+
+    for word in words:
+        card = AnkiCard(az_config=az_config, word=word)
+        card.create_card()
