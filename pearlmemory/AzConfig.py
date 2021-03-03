@@ -1,9 +1,7 @@
 import os
 
 import uuid
-from azure.cognitiveservices.speech import ResultFuture
-from azure.cognitiveservices.speech.audio import AudioOutputConfig
-import azure.cognitiveservices.speech as speechsdk
+
 
 class AzConf:
     AZURE_SPEECH_KEY = os.environ.get("AZ-SPEECH-KEY")
