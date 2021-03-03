@@ -25,65 +25,27 @@ import sys
 from pathlib import Path
 
 import PIL
-import genanki
-import uuid
-
+import azure.cognitiveservices.speech as speechsdk
 import langdetect
 import requests
 from PIL import Image
-from azure.cognitiveservices.speech import ResultFuture
 from azure.cognitiveservices.speech.audio import AudioOutputConfig
-import azure.cognitiveservices.speech as speechsdk
 from resizeimage import resizeimage, imageexceptions
 from slugify import slugify
 
-from pearlmemory import AnkiTemplates
-
-
-class AzConf:
-    AZURE_SPEECH_KEY = os.environ.get("AZ-SPEECH-KEY")
-    AZURE_TRANSLATE_KEY = os.environ.get("AZ-TRANS-KEY")
-    BING_SEARCH_KEY = os.environ.get("AZ-SEARCH-KEY")
-
-    VOICE_SUBSCRIPTION_REGION = (
-        os.environ.get("AZ-SUB-REGION") if os.environ.get("AZ-SUB-REGION") is not None else "australiaeast"
-    )
-
-    TRANSLATE_SUBSCRIPTION_REGION = (
-        os.environ.get("AZ-TRANS-REGION") if os.environ.get("AZ-TRANS-REGION") is not None else "australiaeast"
-    )
-
-    IMAGE_API_URL = "https://api.bing.microsoft.com/v7.0/images/search"
-    TRANSLATE_API_URL = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from={}&to={}"
-
-    ACCEPTED_IMG_FORMATS = ['jpeg', 'jpg', 'png', 'gif']
-
-    AZURE_HEADERS = {
-        'Ocp-Apim-Subscription-Key': AZURE_TRANSLATE_KEY,
-        'Content-type': 'application/json',
-        'X-ClientTraceId': str(uuid.uuid4()),
-        'Ocp-Apim-Subscription-Region': TRANSLATE_SUBSCRIPTION_REGION
-    }
-
-    BING_HEADERS = {"Ocp-Apim-Subscription-Key": f"{BING_SEARCH_KEY}"}
-    BING_PARAMS = {
-        "mkt": "de-DE",
-        "imageType": "Photo",
-        "count": "3"
-    }
+import pearlmemory
 
 
 class AnkiCard:
     OUTPUT_DIRECTORY = Path("../tmp")
-    config = AzConf
+    config = pearlmemory.AzConf()
     translation = {"en": "", "de": ""}
 
-    def __init__(self, az_config: AzConf, word: str):
+    def __init__(self, word: str):
         self.word = word
         self.translation_endpoint = self.__detect_language(word)
         self.audio = self.__voice_translate()
         self.image = self.__download_word_image()
-        self.config = az_config
 
     def __detect_language(self, word):
         if langdetect.detect(word) == 'en':
@@ -211,46 +173,3 @@ class AnkiCard:
 
     def create_card(self):
         return "Card"
-
-
-class AnkiDeck(genanki.Deck):
-    deck_id = str
-
-    def __init__(self, title: str):
-        super().__init__(name=title, deck_id=str(self.__create_id()))
-
-    @staticmethod
-    def __create_id() -> int:
-        """
-        Creates a maybe unique ID for the Anki ID.
-
-        Returns: The first five digits of a UUID4 integer.
-        """
-        return int(str(uuid.uuid4().int)[:5])
-
-    def __str__(self):
-        return f"<AnkiDeck {self.name} {self.deck_id}>"
-
-
-class AnkiModel(genanki.Model):
-    model_id = str
-    fields = [
-        {"name": "Deutsch Wort oder Ausdruck"},
-        {"name": "English Word or Phrase"},
-        {"name": "Bild"},
-        {"name": "Audio"},
-    ]
-    templates = AnkiTemplates.MODEL_TEMPLATES
-    css = ""
-
-    def __init__(self):
-        super(AnkiModel, self).__init__(name="DeModel", model_id=str(self.__create_id()))
-
-    @staticmethod
-    def __create_id() -> int:
-        """
-        Creates a maybe unique ID for the Anki ID.
-
-        Returns: The first five digits of a UUID4 integer.
-        """
-        return int(str(uuid.uuid4().int)[:5])
