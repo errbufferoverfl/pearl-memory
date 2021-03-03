@@ -10,7 +10,8 @@ from pathlib import Path
 import genanki
 from slugify import slugify
 
-from pearlmemory.AnkiCard import AzConf, AnkiDeck, AnkiCard
+from pearlmemory.AnkiCard import AnkiCard
+from pearlmemory.AnkiDeck import AnkiDeck
 
 SEARCH_CVS_FILENAME = Path("anki_search.csv")
 
@@ -49,17 +50,13 @@ if __name__ == '__main__':
     deck_name = input("Please enter your deck name: ")
     deck_name = slugify(deck_name, separator=" ")
 
-    az_config = AzConf()
     deck = AnkiDeck(title=deck_name)
 
     # import the word list
     words = import_translate_list()
 
-    anki_model = genanki.Model(
-        model_id=
-
-    )
+    #anki_model =
 
     for word in words:
-        card = AnkiCard(az_config=az_config, word=word)
+        card = AnkiCard(word=word)
         card.create_card()
