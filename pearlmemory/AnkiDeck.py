@@ -64,7 +64,7 @@ class AnkiDeck(genanki.Deck):
                 fields=[card.translation_dict["de"],
                         card.translation_dict["en"],
                         f'<img src="{card.image.name}">',
-                        f"[sound:{card.audio}]"]))
+                        f"[sound:{card.audio.name}]"]))
 
         return notes
 
