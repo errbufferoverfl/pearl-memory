@@ -20,8 +20,6 @@
     <a href="https://github.com/errbufferoverfl/pearl-memory/blob/main/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/errbufferoverfl/pearl-memory">View Demo</a>
-    ·
     <a href="https://github.com/errbufferoverfl/pearl-memory/issues">Report Bug</a>
     ·
     <a href="https://github.com/errbufferoverfl/pearl-memory/issues">Request Feature</a>
@@ -46,7 +44,7 @@
 
 <p align="center">
   <a href="https://github.com/errbufferoverfl/pearl-memory">
-    <img src="images/pearl-memory_01.png" alt="product-screenshot" width="300" height="300">
+    <img src="images/pearlmemory_01.png" alt="product-screenshot" width="300" height="300">
   </a>
 </p>
 
@@ -96,8 +94,7 @@ terraform apply
 
 **Note:** Bing.Search.v7 APIs haven't been correctly migrated for Terraform use yet so you will need to manually create this asset. You can see the [GitHub issue](https://github.com/terraform-providers/terraform-provider-azurerm/issues/9102) for more details.
 
-**Note:** By default this will deploy (non-global) resources in `australiaeast` using the name "pearl-memory", you can change these
-values by specifying alternatives using the `var` flag like:
+**Note:** By default this will deploy (non-global) resources in `australiaeast` using the name "pearl-memory", you can change these values by specifying alternatives using the `var` flag like:
 
 ```
 terraform apply  -var="name=my-awesome-flashcard-generator" -var="region=brazilsouth"
@@ -116,9 +113,22 @@ az-translate-cog-key = <sensitive>
 
 These outputs can be found in the `.tfstate` file and can be used for the following steps.
 
-4. In `bing_settings.yaml` replace the `BING-API-KEY`, `AZURE_TRANSLATE_KEY` and `AZURE_SPEECH_KEY`.
+4. Create three environment variables:
 
-5. Ensure the `translate_subscription_region` and `voice_subscription_region` is set to the region your resource is deployed in. Check [Speech-to-text, text-to-speech, and translation Regions](https://docs.microsoft.com/en-au/azure/cognitive-services/speech-service/regions#speech-sdk) for the region short codes.
+```
+AZ-SEARCH-KEY   Bing Search API Key
+AZ-TRANS-KEY    Azure Translate Key
+AZ-SPEECH-KEY   Azure Speech Key
+```
+
+If you aren't using the `auestralianeast` region you'll also want to set the following:
+
+```
+AZ-SUB-REGION     brazilsouth
+AZ-TRANS-REGION   brazilsouth
+```
+
+Check [Speech-to-text, text-to-speech, and translation Regions](https://docs.microsoft.com/en-au/azure/cognitive-services/speech-service/regions#speech-sdk) for the region short codes.
 
 6. Populate the `anki_search.csv` with the words you wish to turn into flash cards. You can use English or German words 
 and Pearl Memory will handle the translation to and from their respective language, this isn't perfect and some phrases
@@ -130,6 +140,7 @@ such as `der Lenz` may not be 100% accurate.
 ```sh
 pipenv shell
 ./pearl-memory.py
+Please enter your deck name: My New Deck Name
 ```
 
 <!-- ROADMAP -->
