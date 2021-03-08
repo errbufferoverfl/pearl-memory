@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import errno
+import json
 import logging
 import mimetypes
 import os
@@ -26,6 +27,7 @@ from pathlib import Path
 
 import PIL
 import azure.cognitiveservices.speech as speechsdk
+import genanki
 import langdetect
 import requests
 from PIL import Image
@@ -33,13 +35,13 @@ from azure.cognitiveservices.speech.audio import AudioOutputConfig
 from resizeimage import resizeimage, imageexceptions
 from slugify import slugify
 
-import pearlmemory
+from pearlmemory import AzConfig
 
 
 class AnkiCard:
-    OUTPUT_DIRECTORY = Path("../tmp")
-    config = pearlmemory.AzConf()
-    translation = {"en": "", "de": ""}
+    OUTPUT_DIRECTORY = Path("./tmp").absolute()
+    AZ_CONF = AzConfig.AzConf()
+    translation_dict = {"en": "", "de": ""}
 
     def __init__(self, word: str):
         self.word = word
@@ -47,35 +49,35 @@ class AnkiCard:
         self.audio = self.__voice_translate()
         self.image = self.__download_word_image()
 
-    def __detect_language(self, word):
+    def __detect_language(self, word) -> str:
         if langdetect.detect(word) == 'en':
-            translate_api_url = self.config.TRANSLATE_API_URL.format('en', 'de')
-            self.translation["en"] = word
+            translate_api_url = self.AZ_CONF.TRANSLATE_API_URL.format('en', 'de')
+            self.translation_dict["en"] = word
         elif langdetect.detect(word) == 'de':
-            translate_api_url = self.config.TRANSLATE_API_URL.format('de', 'en')
-            self.translation["de"] = word
+            translate_api_url = self.AZ_CONF.TRANSLATE_API_URL.format('de', 'en')
+            self.translation_dict["de"] = word
         else:
-            translate_api_url = self.config.TRANSLATE_API_URL.format('de', 'en')
-            self.translation["de"] = word
+            translate_api_url = self.AZ_CONF.TRANSLATE_API_URL.format('de', 'en')
+            self.translation_dict["de"] = word
         return translate_api_url
 
-    def __translate_word(self):
+    def __translate_word(self) -> json:
         return requests.post(
             url=self.translation_endpoint,
-            headers=self.config.AZURE_HEADERS,
+            headers=self.AZ_CONF.AZURE_HEADERS,
             json=[{"text": f"{self.word}"}]
         ).json()[0]['translations'][0]['text']
 
-    def __voice_translate(self):
+    def __voice_translate(self) -> str:
         # Define the path to tmp/sound
         audio_path = self.OUTPUT_DIRECTORY / "sound"
         # Generate the wav name using a slugified version of the German word.
-        wav_name = f"{slugify(self.translation['de'], separator='_')}.wav"
+        wav_name = f"{slugify(self.translation_dict['de'], separator='_')}.wav"
         # Join all the path ingredients together
         audio_file = audio_path / wav_name
 
         # Convert to a string because AudioOutputConfig doesn't like the libpath representation.
-        audio_path_str = str(audio_file)
+        audio_path_str = str(audio_file.absolute())
 
         # AudioOutputConfig specifies the parent directory must already exist so we ensure that `/tmp/sound` exists.
         if not audio_path.exists():
@@ -83,8 +85,8 @@ class AnkiCard:
 
         try:
             speech_config = speechsdk.SpeechConfig(
-                subscription=self.config.AZURE_SPEECH_KEY,
-                region=self.config.VOICE_SUBSCRIPTION_REGION
+                subscription=self.AZ_CONF.AZURE_SPEECH_KEY,
+                region=self.AZ_CONF.VOICE_SUBSCRIPTION_REGION
             )
         except ValueError:
             logging.critical("Subscription key must be given. Ensure 'AZURE_SPEECH_KEY' environment variable is set.")
@@ -101,13 +103,14 @@ class AnkiCard:
             speech_config=speech_config,
             audio_config=audio_config
         )
-        ssml_string = open("../ssml.xml", "r").read().format(self.translation['de'])
+
+        ssml_string = self.AZ_CONF.AZURE_SSML_CONF.open().read().format(self.translation_dict['de'])
 
         result = speech_synthesizer.speak_ssml_async(ssml_string).get()
 
         if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
-            logging.info(f"Speech synthesised for text {self.translation['de']}.")
-            return audio_file
+            logging.info(f"Speech synthesised for text {self.translation_dict['de']}.")
+            return audio_path_str
         elif result.reason == speechsdk.ResultReason.Canceled:
             cancellation_details = result.cancellation_details
             logging.error(f"Speech synthesis canceled: {cancellation_details.reason}.")
@@ -117,12 +120,12 @@ class AnkiCard:
             logging.error("Did you update the subscription info?")
 
     def __download_word_image(self):
-        params = self.config.BING_PARAMS
-        params["q"] = self.translation["de"] + f" language:de loc:de"
+        params = self.AZ_CONF.BING_PARAMS
+        params["q"] = self.translation_dict["de"] + f" language:de loc:de"
 
         response = requests.get(
-            url=self.config.IMAGE_API_URL,
-            headers=self.config.BING_HEADERS,
+            url=self.AZ_CONF.IMAGE_API_URL,
+            headers=self.AZ_CONF.BING_HEADERS,
             params=params
         )
         response.raise_for_status()
@@ -140,7 +143,7 @@ class AnkiCard:
         img_extension = mimetypes.guess_extension(img_mime_type[0], strict=True)
 
         img_path = self.OUTPUT_DIRECTORY / "imgs"
-        img_name = f"{slugify(self.translation['de'], separator='_')}{img_extension}"
+        img_name = f"{slugify(self.translation_dict['de'], separator='_')}{img_extension}"
 
         img_file = img_path / img_name
 
@@ -170,6 +173,3 @@ class AnkiCard:
                         cover.save(img_path, image.format)
             except PIL.UnidentifiedImageError:
                 logging.warning("Cannot identify image file, deleting")
-
-    def create_card(self):
-        return "Card"
