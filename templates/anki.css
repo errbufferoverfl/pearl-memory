@@ -6,10 +6,10 @@ ruby:hover rt {
     visibility: visible;
 }
 
-@font-face { font-family: 'Montserrat-Light'; src: url('_montserratlight.ttf'); }
+@font-face { font-family: 'Montserrat-Light', serif; src: url('_montserratlight.ttf'); }
 
 .card {
-    font-family: font-family: 'Montserrat-Light'; src: url('_montserratlight.ttf');
+    font-family: 'Montserrat-Light', serif; src: url('_montserratlight.ttf');
     font-size: 50px;
     text-align: center;
     color: black;
