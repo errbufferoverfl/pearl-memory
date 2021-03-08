@@ -77,7 +77,7 @@ class AnkiCard:
         audio_file = audio_path / wav_name
 
         # Convert to a string because AudioOutputConfig doesn't like the libpath representation.
-        audio_path_str = str(audio_file.absolute())
+        audio_path_str = audio_file.absolute()
 
         # AudioOutputConfig specifies the parent directory must already exist so we ensure that `/tmp/sound` exists.
         if not audio_path.exists():
@@ -92,7 +92,7 @@ class AnkiCard:
             logging.critical("Subscription key must be given. Ensure 'AZURE_SPEECH_KEY' environment variable is set.")
             sys.exit(errno.EPERM)
         try:
-            audio_config = AudioOutputConfig(filename=audio_path_str)
+            audio_config = AudioOutputConfig(filename=str(audio_path_str))
         except NameError:
             # Because of the `audio_path` check we should never hit this exception unless the user has deleted the tmp
             # folder between line 113 and now.
