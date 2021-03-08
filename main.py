@@ -1,5 +1,24 @@
 #!/usr/bin/env pipenv run python
 # -*- coding: utf-8 -*-
+"""
+pearlmemory is a variation of french-genanki-jupyter made for German
+learners.
+
+Copyright (C) 2020  errbufferoverfl.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""
 import csv
 import errno
 import logging
@@ -12,6 +31,7 @@ from slugify import slugify
 
 from pearlmemory.AnkiCard import AnkiCard
 from pearlmemory.AnkiDeck import AnkiDeck
+from pearlmemory.AnkiModel import AnkiModel
 
 SEARCH_CVS_FILENAME = Path("anki_search.csv")
 
@@ -50,13 +70,21 @@ if __name__ == '__main__':
     deck_name = input("Please enter your deck name: ")
     deck_name = slugify(deck_name, separator=" ")
 
-    deck = AnkiDeck(title=deck_name)
-
     # import the word list
     words = import_translate_list()
 
-    #anki_model =
+    anki_model = AnkiModel()
 
+    anki_cards = list()
     for word in words:
-        card = AnkiCard(word=word)
-        card.create_card()
+        anki_cards.append(AnkiCard(word=word))
+
+    deck = AnkiDeck(title=deck_name, anki_cards=anki_cards)
+    deck_notes = deck.create_notes(anki_model)
+
+    for note in deck_notes:
+        deck.add_note(note)
+
+    package = deck.package_deck(deck)
+
+    package.write_to_file('package.apkg')
