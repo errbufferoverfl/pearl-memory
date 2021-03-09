@@ -91,6 +91,7 @@ Terraform by running:
 terraform plan
 terraform apply
 ```
+_The Bing resource still needs to be created manually, because of a known issue with the Azure API._
 
 **Note:** Bing.Search.v7 APIs haven't been correctly migrated for Terraform use yet so you will need to manually create this asset. You can see the [GitHub issue](https://github.com/terraform-providers/terraform-provider-azurerm/issues/9102) for more details.
 
