@@ -1,0 +1,132 @@
+ruby rt {
+    visibility: hidden;
+}
+
+ruby:hover rt {
+    visibility: visible;
+}
+
+@font-face { font-family: 'Montserrat-Light', serif; src: url("templates/_montserratlight.ttf"); }
+
+.card {
+    font-family: 'Montserrat-Light', serif; src: url("templates/_montserratlight.ttf");
+    font-size: 50px;
+    text-align: center;
+    color: black;
+    background: url("background.png");
+}
+
+.android .card {
+    font-family: 'Montserrat-Light', serif; src: url("templates/_montserratlight.ttf");
+    font-size: 30px;
+    text-align: center;
+    color: black;
+    background: url("templates/background.png");
+}
+
+.frontbg {
+    background-color: #18adab;
+    border-radius: 7px;
+    color: #fff;
+    position: relative;
+    left: 0;
+}
+
+.engdefbg {
+    font-family: 'Montserrat-Light', serif; src: url("templates/_montserratlight.ttf");
+    font-style: italic;
+    padding: 15px;
+    margin-left: -5px;
+    margin-top: -15px;
+    color: #18adab;
+    font-size: 15px;
+}
+
+.android .engdefbg {
+    font-family: 'Montserrat-Light', serif; src: url("templates/_montserratlight.ttf");
+    font-style: italic;
+    padding: 15px;
+    margin-left: -15px;
+    margin-top: -20px;
+    color: #18adab;
+    font-size: 10px;
+}
+
+.others {
+    position: relative;
+    top: 15px;
+    border: 1px dotted #72c8e1;
+    color: #18adab;
+    font-size: 20px;
+    width: auto;
+    padding: 15px 20px;
+    margin-bottom: 35px;
+}
+
+.android .others {
+    position: relative;
+    top: 10px;
+    border: 1px dotted #72c8e1;
+    color: #18adab;
+    font-size: 17px;
+    width: auto;
+    padding: 8px 15px;
+    margin-bottom: 20px;
+}
+
+.sentence {
+    font-size: 25px;
+    margin-top: -20px;
+    margin-bottom: 5px;
+}
+
+.android .sentence {
+    font-size: 17px;
+    margin-top: -15px;
+}
+
+.backbg {
+    position: relative;
+    top: -3px;
+    background-color: #fff;
+    padding: 15px 30px;
+    border-radius: 0px 0px 10px 10px;
+    color: #016ea6;
+    font-size: 28px;
+    text-align: left;
+}
+
+.android .backbg {
+    position: relative;
+    top: -5px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 0px 0px 10px 10px;
+    color: #016ea6;
+    font-size: 20px;
+    text-align: left;
+}
+
+.hira {
+    font-size: 25px;
+    line-height: 5px;
+    padding-bottom: 40px;
+}
+
+.android .hira {
+    font-size: 18px;
+    line-height: 5px;
+    padding-bottom: 25px;
+}
+
+hr {
+    height: 2px;
+    font-size: 30px;
+    border: 0;
+    background: #72c8e1;
+}
+
+u {
+    text-decoration: none;
+    border-bottom: 1px dotted;
+}
