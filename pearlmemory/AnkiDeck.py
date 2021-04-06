@@ -28,6 +28,7 @@ from pearlmemory.AnkiCard import AnkiCard
 class AnkiDeck(genanki.Deck):
     deck_id = str
     anki_cards = List[AnkiCard]
+    model = genanki.Model
 
     def __init__(self, title: str, anki_cards: List[AnkiCard]):
         super().__init__(name=title, deck_id=self.__create_id())
@@ -38,7 +39,7 @@ class AnkiDeck(genanki.Deck):
         for card in self.anki_cards:
             media.append(card.image)
             media.append(card.audio)
-
+            media.extend(card.satze_audio)
         return media
 
     @staticmethod
@@ -53,7 +54,6 @@ class AnkiDeck(genanki.Deck):
     def package_deck(self, anki_deck: genanki.Deck) -> genanki.Package:
         package = genanki.Package(anki_deck)
         package.media_files = self.__build_media_lib()
-
         return package
 
     def create_notes(self, model: genanki.Model):
@@ -63,9 +63,20 @@ class AnkiDeck(genanki.Deck):
                 model=model,
                 fields=[card.translation_dict["de"],
                         card.translation_dict["en"],
-                        f'<img src="{card.image.name}">',
-                        f"[sound:{card.audio.name}]"]))
-
+                        f"[sound:{card.audio.name}]",
+                        card.satze[1],
+                        card.satze[0],
+                        f"[sound:{card.satze_audio[0].name}]",
+                        card.satze[3],
+                        card.satze[2],
+                        f"[sound:{card.satze_audio[1].name}]",
+                        card.satze[5],
+                        card.satze[4],
+                        f"[sound:{card.satze_audio[2].name}]",
+                        card.satze[7],
+                        card.satze[6],
+                        f"[sound:{card.satze_audio[3].name}]"]
+                ))
         return notes
 
     def __str__(self):

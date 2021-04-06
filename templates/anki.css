@@ -6,10 +6,10 @@ ruby:hover rt {
     visibility: visible;
 }
 
-@font-face { font-family: 'Montserrat-Light', serif; src: url('_montserratlight.ttf'); }
+@font-face { font-family: 'Montserrat-Light', serif; src: url("templates/_montserratlight.ttf"); }
 
 .card {
-    font-family: 'Montserrat-Light', serif; src: url('_montserratlight.ttf');
+    font-family: 'Montserrat-Light', serif; src: url("templates/_montserratlight.ttf");
     font-size: 50px;
     text-align: center;
     color: black;
@@ -17,11 +17,11 @@ ruby:hover rt {
 }
 
 .android .card {
-    font-family: 'Montserrat-Light', sans-serif;
+    font-family: 'Montserrat-Light', serif; src: url("templates/_montserratlight.ttf");
     font-size: 30px;
     text-align: center;
     color: black;
-    background: url("background.png");
+    background: url("templates/background.png");
 }
 
 .frontbg {
@@ -33,7 +33,7 @@ ruby:hover rt {
 }
 
 .engdefbg {
-    font-family: 'Montserrat-Light', sans-serif;
+    font-family: 'Montserrat-Light', serif; src: url("templates/_montserratlight.ttf");
     font-style: italic;
     padding: 15px;
     margin-left: -5px;
@@ -43,7 +43,7 @@ ruby:hover rt {
 }
 
 .android .engdefbg {
-    font-family: 'Montserrat-Light', sans-serif;
+    font-family: 'Montserrat-Light', serif; src: url("templates/_montserratlight.ttf");
     font-style: italic;
     padding: 15px;
     margin-left: -15px;
