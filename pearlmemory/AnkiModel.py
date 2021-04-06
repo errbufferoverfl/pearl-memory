@@ -28,13 +28,13 @@ from pearlmemory import AnkiTemplates
 class AnkiModel(genanki.Model):
     model_id = str
     fields = [
-        {"name": "Deutsch Wort oder Ausdruck"},
-        {"name": "English Word or Phrase"},
+        {"name": "Wort_DE"},
+        {"name": "Wort_EN"},
         {"name": "Bild"},
-        {"name": "Audio"},
+        {"name": "Audio_Wort"},
     ]
     templates = AnkiTemplates.MODEL_TEMPLATES
-    css = "templates/anki.css"
+    css = Path("templates/anki.css").open().read()
 
     def __init__(self):
         super(AnkiModel, self).__init__(name="Simple Vocabulary",
