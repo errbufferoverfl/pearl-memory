@@ -3,7 +3,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![GPLv3 License][license-shield]][license-url]
+[![MIT License][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -15,7 +15,7 @@
   <h3 align="center">Pearl Memory</h3>
 
   <p align="center">
-    A Python script for creating German Anki cards. The script loads a CSV file of words to search, gets a translation using Azure Cognitive Services translate and text to speech to generate the primary content, to help enforce the learning process uses images sourced from Bing Image API.
+    A Python script for creating German Anki cards. The script loads a CSV file of words to search, gets a translation using Azure Cognitive Services translate and text to speech to generate the primary content. Pearl Memory also supports Google for translation services not for text to speech.
     <br />
     <a href="https://github.com/errbufferoverfl/pearl-memory/blob/main/README.md"><strong>Explore the docs »</strong></a>
     <br />
@@ -51,7 +51,7 @@
 <!-- ABOUT THE PROJECT -->
 ## Built With
 
-Built with Python 3, on Azure Cognos Services.
+Built with Python 3, on Azure Cognos Services and Google Translate.
 
 <!-- PREREQUISITES -->
 # Prerequisites
@@ -64,11 +64,13 @@ Built with Python 3, on Azure Cognos Services.
 
 ## Optional
 
-The following additional tools are needed if you want to automatically build the Azure Services
+For better and more consistent translation, you can now use Google Translate. **Note:** You only need the Translation API Basic tier.
+* [Google Translate Basic API](https://cloud.google.com/translate)
+
+The following additional tools are needed if you want to automatically build the Azure Services - the Terraform file will not deploy the Google Translate API services so this still needs to be done manually.
 
 * [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 * [Terraform](https://www.terraform.io/)
-
 
 <!-- GETTING STARTED -->
 # Getting Started
@@ -85,8 +87,7 @@ git clone https://github.com/errbufferoverfl/pearl-memory.git
 pipenv install
 ```
 
-3. Configure a Bing API key, Azure Translator API and Azure Text to Speech API. This can be done automatically using 
-Terraform by running:
+3. Configure a Bing API key, Azure Translator API and Azure Text to Speech API. This can be done automatically using Terraform by running:
 ```
 terraform plan
 terraform apply
@@ -113,15 +114,24 @@ az-translate-cog-key = <sensitive>
 
 These outputs can be found in the `.tfstate` file and can be used for the following steps.
 
-4. Create three environment variables:
+4. (Optional: Google) If you are planning on using the Google Translation API, you will need to create a [Google Cloud Platform account](https://console.cloud.google.com/). Once you have logged into the Google Cloud Platform (GCP) console, using the GCP search bar, search for "Cloud Translation API" and follow the steps to create a new project.
+
+5. Create an API key (not a service account) for this service, and ensure you scope the keys to only the translation service so if they are compromised the impact caused is minimised.
+
+6. Create three environment variables:
 
 ```
 AZ-SEARCH-KEY   Bing Search API Key
+
+# If you are using Google do not create this key
 AZ-TRANS-KEY    Azure Translate Key
 AZ-SPEECH-KEY   Azure Speech Key
+
+# If you are using Google create this key
+GOOGLE-TRANS-KEY  Google Translate Key created in step 4.
 ```
 
-If you aren't using the `auestralianeast` region you'll also want to set the following:
+If you *aren't* using the `auestralianeast` region in Azure you'll also want to set the following environment variables:
 
 ```
 AZ-SUB-REGION     brazilsouth
@@ -130,9 +140,7 @@ AZ-TRANS-REGION   brazilsouth
 
 Check [Speech-to-text, text-to-speech, and translation Regions](https://docs.microsoft.com/en-au/azure/cognitive-services/speech-service/regions#speech-sdk) for the region short codes.
 
-6. Populate the `anki_search.csv` with the words you wish to turn into flash cards. You can use English or German words 
-and Pearl Memory will handle the translation to and from their respective language, this isn't perfect and some phrases
-such as `der Lenz` may not be 100% accurate.
+6. Populate the `anki_search.csv` with the words you wish to turn into flash cards. You can use English or German words and Pearl Memory will handle the translation to and from their respective language.
 
 <!-- USAGE EXAMPLES -->
 ## Usage Examples
@@ -163,7 +171,7 @@ Any contributions you make is **greatly appreciated**.
 <!-- LICENSE -->
 ## License
 
-Distributed under the GPLv3 License. See [LICENSE.md](LICENSE.md) for more information.
+Distributed under the MIT License. See [LICENSE](LICENSE.txt) for more information.
 
 <!-- CONTACT -->
 ## Contact
@@ -186,5 +194,5 @@ Distributed under the GPLv3 License. See [LICENSE.md](LICENSE.md) for more infor
 [issues-shield]: https://img.shields.io/github/issues/errbufferoverfl/pearl-memory.svg?style=flat-square
 [issues-url]: https://github.com/errbufferoverfl/pearl-memory/issues
 [license-shield]: https://img.shields.io/github/license/errbufferoverfl/pearl-memory.svg?style=flat-square
-[license-url]: https://github.com/errbufferoverfl/pearl-memory/blob/master/LICENSE.md
+[license-url]: https://github.com/errbufferoverfl/pearl-memory/blob/master/LICENSE.txt
 [product-screenshot]: images/screenshot.png
