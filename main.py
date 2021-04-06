@@ -26,6 +26,7 @@ import os
 import shutil
 import sys
 from pathlib import Path
+from time import sleep
 
 import genanki
 from slugify import slugify
@@ -79,6 +80,8 @@ if __name__ == '__main__':
     anki_cards = list()
     for word in words:
         anki_cards.append(AnkiCard(word=word))
+        sleep(10)
+        logging.info("Sleeping for 10 seconds.")
 
     deck = AnkiDeck(title=deck_name, anki_cards=anki_cards)
     deck_notes = deck.create_notes(anki_model)
