@@ -14,6 +14,7 @@ pillow = "*"
 python-resize-image = "*"
 azure-cognitiveservices-speech = "*"
 langdetect = "*"
+python-slugify = "*"
 
 [requires]
 python_version = "3.7"
