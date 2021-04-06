@@ -15,6 +15,7 @@ python-resize-image = "*"
 azure-cognitiveservices-speech = "*"
 langdetect = "*"
 python-slugify = "*"
+lxml = "*"
 
 [requires]
 python_version = "3.7"
