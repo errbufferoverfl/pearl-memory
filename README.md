@@ -15,11 +15,15 @@
   <h3 align="center">Pearl Memory</h3>
 
   <p align="center">
-    A Python script for creating German Anki cards. The script loads a CSV file of words to search, gets a translation using Azure Cognitive Services translate and text to speech to generate the primary content, to help enforce the learning process uses images sourced from Bing Image API.
+    A Python script for creating German Anki cards. The script loads a CSV file of words to search, gets a translation
+    using Azure Cognitive Services translate and text to speech to generate the primary content, to help enforce the
+    learning process uses images sourced from Bing Image API.
     <br />
-    <a href="https://github.com/errbufferoverfl/pearl-memory/blob/main/README.md"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/errbufferoverfl/pearl-memory"><strong>Explore the docs »</strong></a>
     <br />
     <br />
+    <a href="https://github.com/errbufferoverfl/pearl-memory">View Demo</a>
+    ·
     <a href="https://github.com/errbufferoverfl/pearl-memory/issues">Report Bug</a>
     ·
     <a href="https://github.com/errbufferoverfl/pearl-memory/issues">Request Feature</a>
@@ -44,7 +48,7 @@
 
 <p align="center">
   <a href="https://github.com/errbufferoverfl/pearl-memory">
-    <img src="images/pearlmemory_01.png" alt="product-screenshot" width="300" height="300">
+    <img src="images/pearl-memory_01.png" alt="product-screenshot" width="300" height="300">
   </a>
 </p>
 
@@ -53,7 +57,7 @@
 
 Built with Python 3, on Azure Cognos Services.
 
-<!-- PREREQUISITES -->
+<!-- prerequisites -->
 # Prerequisites
 
 * [Anki](https://apps.ankiweb.net/)
@@ -79,23 +83,19 @@ To get a local copy up and running on macOS use the following steps.
 ```sh
 git clone https://github.com/errbufferoverfl/pearl-memory.git
 ```
-
 2. Install Python packages.
 ```sh
 pipenv install
 ```
-
-3. Configure a Bing API key, Azure Translator API and Azure Text to Speech API. This can be done automatically using 
-Terraform by running:
+3. Configure a Bing API key, Azure Translator API and Azure Text to Speech API. Creation of the Azure Translator API and Azure Text to Speech API can be done automatically using Terraform by running the following commands:
 ```
 terraform plan
 terraform apply
 ```
 _The Bing resource still needs to be created manually, because of a known issue with the Azure API._
 
-**Note:** Bing.Search.v7 APIs haven't been correctly migrated for Terraform use yet so you will need to manually create this asset. You can see the [GitHub issue](https://github.com/terraform-providers/terraform-provider-azurerm/issues/9102) for more details.
-
-**Note:** By default this will deploy (non-global) resources in `australiaeast` using the name "pearl-memory", you can change these values by specifying alternatives using the `var` flag like:
+**Note:** By default this will deploy (non global) resources in `australiaeast` using the name "pearl-memory", you can change these
+values by specifying alternatives using the `var` flag like:
 
 ```
 terraform apply  -var="name=my-awesome-flashcard-generator" -var="region=brazilsouth"
@@ -114,22 +114,11 @@ az-translate-cog-key = <sensitive>
 
 These outputs can be found in the `.tfstate` file and can be used for the following steps.
 
-4. Create three environment variables:
+4. In `bing_settings.yaml` replace the `BING-API-KEY`, `AZURE_TRANSLATE_KEY` and `AZURE_SPEECH_KEY`.
 
-```
-AZ-SEARCH-KEY   Bing Search API Key
-AZ-TRANS-KEY    Azure Translate Key
-AZ-SPEECH-KEY   Azure Speech Key
-```
-
-If you aren't using the `auestralianeast` region you'll also want to set the following:
-
-```
-AZ-SUB-REGION     brazilsouth
-AZ-TRANS-REGION   brazilsouth
-```
-
-Check [Speech-to-text, text-to-speech, and translation Regions](https://docs.microsoft.com/en-au/azure/cognitive-services/speech-service/regions#speech-sdk) for the region short codes.
+5. Ensure the `translate_subscription_region` and `voice_subscription_region` is set to the region your resource is
+deployed in. Check [Speech-to-text, text-to-speech, and translation Regions](https://docs.microsoft.com/en-au/azure/cognitive-services/speech-service/regions#speech-sdk) for 
+region short codes.
 
 6. Populate the `anki_search.csv` with the words you wish to turn into flash cards. You can use English or German words 
 and Pearl Memory will handle the translation to and from their respective language, this isn't perfect and some phrases
@@ -141,24 +130,24 @@ such as `der Lenz` may not be 100% accurate.
 ```sh
 pipenv shell
 ./pearl-memory.py
-Please enter your deck name: My New Deck Name
 ```
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/errbufferoverfl/pearl-memory/issues) for a list of proposed features (and known issues). Pull requests are always welcome!
+See the [open issues](https://github.com/errbufferoverfl/pearl-memory/issues) for a list of proposed features 
+(and known issues).
 
 <!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. 
-Any contributions you make is **greatly appreciated**.
+Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b issue_no_feature_description`)
-3. Commit your Changes (`git commit -m "Adds some amazing feature"`)
-4. Push to the Branch (`git push origin issue_no_feature_description`)
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
 <!-- LICENSE -->

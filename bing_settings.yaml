@@ -1,0 +1,18 @@
+image_api_url: https://api.bing.microsoft.com/v7.0/images/search
+translate_api_url: https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from={}&to={}
+
+translate_subscription_region: australiaeast
+voice_subscription_region: australiaeast
+
+bing_search_key: BING-API-KEY
+azure_translate_key: AZURE_TRANSLATE_KEY
+azure_speech_key: AZURE_SPEECH_KEY
+
+setLang:    DE
+mkt:        de-DE
+freshness:  Month
+imageType:  Photo
+license:    Any
+count:      3
+language:   de #language for advance search parameter (within q=)
+loc:        de #location, similar to above
