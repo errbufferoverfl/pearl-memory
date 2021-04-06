@@ -88,7 +88,7 @@ if __name__ == '__main__':
 
     package = deck.package_deck(deck)
 
-    package.write_to_file('package.apkg')
+    package.write_to_file(f"{deck_name}.apkg")
 
     shutil.rmtree("./tmp/imgs")
     shutil.rmtree("./tmp/sound")
