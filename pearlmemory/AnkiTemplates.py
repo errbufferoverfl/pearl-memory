@@ -20,75 +20,50 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 MODEL_TEMPLATES = [
     {
-        "name": "English to German",
-        # Front template format
-        "qfmt": """
-        {{#Bild}}<div>{{Bild}}</div>{{/Bild}}
-        {{#English Word or Phrase}}
-        <div style='font-family: Arial; font-size: 14px;'>
-            {{English Word or Phrase}}
-        </div>
-        {{/English Word or Phrase}}
-        """,
-        # Back template Format
-        "afmt": """
-        {{#Deutsch Wort oder Ausdruck}}
-        <div style='font-family: Arial; font-size: 14px;'>
-            {{Deutsch Wort oder Ausdruck}}
-        </div>{{/Deutsch Wort oder Ausdruck}}
-        {{#Audio}}
-        <div style='font-family: Arial; font-size: 14px;'>
-            {{Audio}}
-        </div>
-        {{/Audio}}
-        """
-    },
-    {
         "name": "German to English",
         # Front template format
         "qfmt": """
-        {{#Bild}}<div>{{Bild}}</div>{{/Bild}}
-        {{#English Word or Phrase}}
-        <div style='font-family: Arial; font-size: 14px;'>
-            {{English Word or Phrase}}
-        </div>
-        {{/English Word or Phrase}}
+{{Wort_DE}}{{Audio_Wort}}
         """,
         # Back template Format
         "afmt": """
-        {{#Deutsch Wort oder Ausdruck}}
-        <div style='font-family: Arial; font-size: 14px;'>
-            {{Deutsch Wort oder Ausdruck}}
-        </div>{{/Deutsch Wort oder Ausdruck}}
-        {{#Audio}}
-        <div style='font-family: Arial; font-size: 14px;'>
-            {{Audio}}
-        </div>
-        {{/Audio}}
-        """
-    },
-    {
-        "name": "Spelling",
-        # Front template format
-        "qfmt": """
-        <div>Kannst du es buchstabieren?</div>
-        {{#English Word or Phrase}}
-        <div style='font-family: Arial; font-size: 14px;'>
-            {{English Word or Phrase}}
-        </div>
-        {{/English Word or Phrase}}
-        """,
-        # Back template Format
-        "afmt": """
-        {{#Deutsch Wort oder Ausdruck}}
-        <div style='font-family: Arial; font-size: 14px;'>
-            {{Deutsch Wort oder Ausdruck}}
-        </div>{{/Deutsch Wort oder Ausdruck}}
-        {{#Audio}}
-        <div style='font-family: Arial; font-size: 14px;'>
-            {{Audio}}
-        </div>
-        {{/Audio}}
+{{#Artikel}}{{Artikel}}{{/Artikel}}
+{{Wort_DE}}
+{{#Plural}}{{Plural}}{{/Plural}}
+{{Audio_Wort}}
+
+<div style='font-family: Arial; font-size: 16px;'>
+{{#Verbformen}}<br>Verbformen: {{Verbformen}}{{/Verbformen}}
+{{#Hinweis}}<br>Hinweis: {{Hinweis}}{{/Hinweis}}
+</div>
+
+<hr id=answer>
+
+{{Wort_EN}}
+
+<hr>
+
+<div style="display:none">[sound:_LongSilence.mp3]</div>
+
+{{#Satz1_DE}}
+<div style='font-family: Arial; font-size: 16px;'>{{Satz1_DE}}{{Audio_S1}}</div>
+<div style='font-family: Arial; font-size: 14px;'>{{hint:Satz1_EN}}</div><br>
+{{/Satz1_DE}}
+
+{{#Satz2_DE}}
+<div style='font-family: Arial; font-size: 16px;'>{{Satz2_DE}}{{Audio_S2}}</div>
+<div style='font-family: Arial; font-size: 14px;'>{{hint:Satz2_EN}}</div><br>
+{{/Satz2_DE}}
+
+{{#Satz3_DE}}
+<div style='font-family: Arial; font-size: 16px;'>{{Satz3_DE}}{{Audio_S3}}</div>
+<div style='font-family: Arial; font-size: 14px;'>{{hint:Satz3_EN}}</div><br>
+{{/Satz3_DE}}
+
+{{#Satz4_DE}}
+<div style='font-family: Arial; font-size: 16px;'>{{Satz4_DE}}{{Audio_S4}}</div>
+<div style='font-family: Arial; font-size: 14px;'>{{hint:Satz4_EN}}</div><br>
+{{/Satz4_DE}}
         """
     },
 ]
