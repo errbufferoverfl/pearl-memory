@@ -39,6 +39,7 @@ class AnkiDeck(genanki.Deck):
         for card in self.anki_cards:
             media.append(card.image)
             media.append(card.audio)
+            media.extend(card.satze_audio)
         return media
 
     @staticmethod
@@ -62,8 +63,20 @@ class AnkiDeck(genanki.Deck):
                 model=model,
                 fields=[card.translation_dict["de"],
                         card.translation_dict["en"],
-                        f'<img src="{card.image.name}">',
-                        f"[sound:{card.audio.name}]"]))
+                        f"[sound:{card.audio.name}]",
+                        card.satze[1],
+                        card.satze[0],
+                        f"[sound:{card.satze_audio[0].name}]",
+                        card.satze[3],
+                        card.satze[2],
+                        f"[sound:{card.satze_audio[1].name}]",
+                        card.satze[5],
+                        card.satze[4],
+                        f"[sound:{card.satze_audio[2].name}]",
+                        card.satze[7],
+                        card.satze[6],
+                        f"[sound:{card.satze_audio[3].name}]"]
+                ))
         return notes
 
     def __str__(self):

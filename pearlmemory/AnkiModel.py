@@ -30,8 +30,19 @@ class AnkiModel(genanki.Model):
     fields = [
         {"name": "Wort_DE"},
         {"name": "Wort_EN"},
-        {"name": "Bild"},
         {"name": "Audio_Wort"},
+        {"name": "Satz1_DE"},
+        {"name": "Satz1_EN"},
+        {"name": "Audio_S1"},
+        {"name": "Satz2_DE"},
+        {"name": "Satz2_EN"},
+        {"name": "Audio_S2"},
+        {"name": "Satz3_DE"},
+        {"name": "Satz3_EN"},
+        {"name": "Audio_S3"},
+        {"name": "Satz4_DE"},
+        {"name": "Satz4_EN"},
+        {"name": "Audio_S4"},
     ]
     templates = AnkiTemplates.MODEL_TEMPLATES
     css = Path("templates/anki.css").open().read()

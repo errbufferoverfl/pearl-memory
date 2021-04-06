@@ -31,8 +31,8 @@ import azure.cognitiveservices.speech as speechsdk
 import langdetect
 import requests
 from PIL import Image
-from PyDictionary.test_pydictionary import dictionary
 from azure.cognitiveservices.speech.audio import AudioOutputConfig
+from bs4 import BeautifulSoup
 from resizeimage import resizeimage, imageexceptions
 from slugify import slugify
 
@@ -56,8 +56,10 @@ class AnkiCard:
     def __init__(self, word: str):
         self.word = word
         self.translation_dict = self.__translate_word(word)
-        self.audio = self.__voice_translate()
+        self.audio = self.__voice_translate(self.translation_dict["de"])
         self.image = self.__download_word_image()
+        self.satze = self.__get_example_satze()
+        self.satze_audio = self.__generate_satze_audio()
 
     def __translate_word(self, word):
         translation_dict = {"en": "", "de": "", "artikle": ""}
@@ -105,11 +107,19 @@ class AnkiCard:
             json=[{"text": f"{self.word}"}]
         ).json()[0]['translations'][0]['text']
 
-    def __voice_translate(self) -> str:
+    def __generate_satze_audio(self):
+        sentence_audio = list()
+        german_sentences = self.satze[1::2]
+        for sentence in german_sentences:
+            sentence_audio.append(self.__voice_translate(sentence))
+
+        return sentence_audio
+
+    def __voice_translate(self, phrase: str) -> str:
         # Define the path to tmp/sound
         audio_path = self.OUTPUT_DIRECTORY / "sound"
         # Generate the wav name using a slugified version of the German word.
-        wav_name = f"{slugify(self.translation_dict['de'], separator='_')}.wav"
+        wav_name = f"{slugify(phrase, separator='_')}.wav"
         # Join all the path ingredients together
         audio_file = audio_path / wav_name
 
@@ -140,12 +150,12 @@ class AnkiCard:
             audio_config=audio_config
         )
 
-        ssml_string = self.CONFIG.AZURE_SSML_CONF.open().read().format(self.translation_dict['de'])
+        ssml_string = self.CONFIG.AZURE_SSML_CONF.open().read().format(phrase)
 
         result = speech_synthesizer.speak_ssml_async(ssml_string).get()
 
         if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
-            logging.info(f"Speech synthesised for text {self.translation_dict['de']}.")
+            logging.info(f"Speech synthesised for text {phrase}.")
             return audio_path_str
         elif result.reason == speechsdk.ResultReason.Canceled:
             cancellation_details = result.cancellation_details
@@ -216,3 +226,10 @@ class AnkiCard:
                         cover.save(img_path, image.format)
             except PIL.UnidentifiedImageError:
                 logging.warning("Cannot identify image file, deleting")
+
+    def __get_example_satze(self):
+        req = requests.get(f"https://context.reverso.net/translation/english-german/{self.translation_dict['en']}",
+                           headers={'User-Agent': 'Mozilla/5.0'})
+        soup = BeautifulSoup(req.text, 'lxml')
+        sentences = [x.text.strip() for x in soup.find_all('span', {'class': 'text'}) if '\n' in x.text]
+        return sentences[:8]
